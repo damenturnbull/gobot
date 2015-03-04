@@ -12,7 +12,7 @@ To run tests:
 
 Assumptions
 -----------
-- Gobot has geolocation awareness ie. Gobot is responsible for knowing what it's x and y coordinates are in relation to the table.
+- Gobot has geolocation awareness ie. Gobot is responsible for knowing what it's x and y coordinates are in relation to the tabletop.
 
 Specification
 -----------

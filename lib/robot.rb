@@ -10,13 +10,13 @@ class Robot
 
 	def move_forward
 		case @direction
-			when "NORTH"
+			when :north.to_s.upcase
 				@y += 1
-			when "EAST"
+			when :east.to_s.upcase
 				@x += 1
-			when "SOUTH"
+			when :south.to_s.upcase
 				@y -= 1
-			when "WEST"
+			when :west.to_s.upcase
 				@x -= 1
 		end
 	end
