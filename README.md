@@ -2,6 +2,12 @@
 
 A small, test driven Ruby application that simulates a robot moving on a tabletop.
 
+- Makes use of require_all gem for ease of testing.
+
+To run tests:
+### 
+    bundle install
+    rspec
 
 Description
 -----------
