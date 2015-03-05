@@ -1,18 +1,18 @@
 class Robot
   attr_accessor :direction, :x, :y, :placed
   attr_reader   :direction_index
-  Directions = {:north => 0, :east => 1, :south => 2, :west => 3}
+  DIRECTIONS =  {:north => 0, :east => 1, :south => 2, :west => 3}
 
   def initialize(direction, x, y)
     @direction        = direction
-    @direction_index  = Directions[@direction.to_sym.downcase]
+    @direction_index  = DIRECTIONS[@direction.to_sym_down]
     @x                = x
     @y                = y
     @placed           = false
   end
 
   def move_forward
-    case @direction.to_sym.downcase
+    case @direction.to_sym_down
       when :north
         @y += 1
       when :east
@@ -35,7 +35,7 @@ class Robot
   def turn(value)
     @direction_index += value
     validate_direction
-    @direction = Directions.key(@direction_index).to_s.upcase
+    @direction = DIRECTIONS.key(@direction_index).to_str_up
   end
 
   # Reset index if out of bounds
@@ -48,9 +48,4 @@ class Robot
     end
   end
 
-  # def to_sym_down
-  # end
-
-  # def to_str_up
-  # end
 end
