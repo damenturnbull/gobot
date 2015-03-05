@@ -12,14 +12,14 @@ class Robot
 	end
 
 	def move_forward
-		case @direction
-			when :north.to_s.upcase
+		case @direction.to_sym.downcase
+			when :north
 				@y += 1
-			when :east.to_s.upcase
+			when :east
 				@x += 1
-			when :south.to_s.upcase
+			when :south
 				@y -= 1
-			when :west.to_s.upcase
+			when :west
 				@x -= 1
 		end
 	end
@@ -38,7 +38,7 @@ class Robot
 		@direction = Directions.key(@direction_index).to_s.upcase
 	end
 
-	# Reset index if out of bounds 
+	# Reset index if out of bounds
 	def validate_direction
 		case @direction_index
 			when -1

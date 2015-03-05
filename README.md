@@ -7,8 +7,8 @@ Setup
 
 To run tests:
 ### 
-    bundle install
-    rspec
+    $ bundle install
+    $ rspec
 
 Assumptions
 -----------

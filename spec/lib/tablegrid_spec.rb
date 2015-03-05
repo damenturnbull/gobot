@@ -1,4 +1,4 @@
-describe TableGrid do 
+describe TableGrid do
 
 	describe '#initialize' do
 		let(:tablegrid) { TableGrid.new(5, 5) }
