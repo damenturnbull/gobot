@@ -1,25 +1,25 @@
 class Gobot
-	COMMAND_ERROR = "Invalid command. Please try again."
+  COMMAND_ERROR = "Invalid command. Please try again."
   COMMANDS      = [:place, :move, :left, :right, :report]
   attr_reader   :robot
 
-	def initialize
-		# @robot = Robot.new("NORTH",nil,nil)
+  def initialize
+    # @robot = Robot.new("NORTH",nil,nil)
     self
-	end
+  end
 
-	# Ask for input
-	def start
-		begin
-			while line = gets
-				validate_command line
-			end
-		rescue StandardError => e
-			raise e
-		rescue Exception => e
-			puts "\nGobot is sleeping now. Good bye."
-		end
-	end
+  # Ask for input
+  def start
+    begin
+      while line = gets
+        validate_command line
+      end
+    rescue StandardError => e
+      raise e
+    rescue Exception => e
+      puts "\nGobot is sleeping now. Good bye."
+    end
+  end
 
   # PLACE X,Y,F
   # MOVE
