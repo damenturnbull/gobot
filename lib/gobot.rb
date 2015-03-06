@@ -1,6 +1,6 @@
 class Gobot
+  COMMANDS      = /PLACE [0-4],[0-4],(NORTH|EAST|SOUTH|WEST)|MOVE|LEFT|RIGHT|REPORT/
   COMMAND_ERROR = "Invalid command. Please try again."
-  COMMANDS      = [:place, :move, :left, :right, :report]
   attr_reader   :robot
 
   def initialize
@@ -12,12 +12,12 @@ class Gobot
   def start
     begin
       while line = gets
-        validate_command line
+        puts validate_command line
       end
     rescue StandardError => e
       raise e
     rescue Exception => e
-      puts "\nGobot is sleeping now. Good bye."
+      puts "\nGobot is asleep. Good bye."
     end
   end
 
@@ -26,13 +26,13 @@ class Gobot
   # LEFT
   # RIGHT
   # REPORT
-  def validate_command(command)
+  def validate_command(next_command)
     begin
-      command = command.strip.to_sym.downcase
-      raise ArgumentError, COMMAND_ERROR unless COMMANDS.include? command
-      return command
+      # return "Successful command"
+      raise ArgumentError, COMMAND_ERROR unless COMMANDS =~ next_command.strip.upcase
+      # return next_command
     rescue ArgumentError => e
-      puts e.message
+      e.message
     end
   end
 
