@@ -1,18 +1,24 @@
+require_relative '../lib/robot'
 class Gobot
-  COMMANDS      = /PLACE [0-4],[0-4],(NORTH|EAST|SOUTH|WEST)|MOVE|LEFT|RIGHT|REPORT/
-  COMMAND_ERROR = "Invalid command. Please try again."
-  attr_reader   :robot
+  COMMAND_PLACE = /PLACE [0-4],[0-4],(NORTH|EAST|SOUTH|WEST)/
+  COMMAND_MOVES = /MOVE|LEFT|RIGHT/
+  COMMAND_UTILS = /REPORT/
+  MESSAGE_ERROR = "Invalid command. Please try again."
+  MESSAGE_UNPLACED = "Robot must be placed first."
+  attr_reader   :robot, :tablegrid
 
-  def initialize
-    # @robot = Robot.new("NORTH",nil,nil)
+  def initialize(tablegrid)
+    @tablegrid = tablegrid
+    @robot = Robot.new
     self
   end
 
-  # Ask for input
+  # Asks for input
+  # Handles top level and Signal terminations Exceptions
   def start
     begin
       while line = gets
-        puts validate_command line
+        puts validate_command(line)
       end
     rescue StandardError => e
       raise e
@@ -21,19 +27,43 @@ class Gobot
     end
   end
 
-  # PLACE X,Y,F
-  # MOVE
-  # LEFT
-  # RIGHT
-  # REPORT
-  def validate_command(next_command)
+  # Handles invalid command Exceptions
+  def validate_command(command)
     begin
-      # return "Successful command"
-      raise ArgumentError, COMMAND_ERROR unless COMMANDS =~ next_command.strip.upcase
-      # return next_command
+      command = command.strip.upcase
+      valid = COMMAND_PLACE =~ command ||
+              COMMAND_MOVES =~ command ||
+              COMMAND_UTILS =~ command
+      raise ArgumentError, MESSAGE_ERROR unless valid
+      handle_command(command)
+    # Rescue here, continue standard input loop
     rescue ArgumentError => e
       e.message
     end
+  end
+
+  def handle_command(command)
+    case command
+    when COMMAND_PLACE =~ command
+      pre_place(command)
+    when COMMAND_MOVES =~ command
+      pre_move(command)
+    when COMMAND_UTILS =~ command
+      report
+    end
+  end
+
+  # Check if movement valid
+  def pre_place(command)
+    # split place
+    # 1,1,NORTH
+    # @robot.place(command)
+  end
+
+  # Check Robot has been placed first
+  def pre_move(command)
+    raise ArgumentError, MESSAGE_UNPLACED unless robot.placed
+    robot.send(command.downcase.to_sym)
   end
 
 end

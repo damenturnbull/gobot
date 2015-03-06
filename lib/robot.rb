@@ -1,7 +1,7 @@
 class Robot
+  DIRECTIONS =  {:north => 0, :east => 1, :south => 2, :west => 3}
   attr_accessor :direction, :position, :placed
   attr_reader   :direction_index
-  DIRECTIONS =  {:north => 0, :east => 1, :south => 2, :west => 3}
 
   def initialize
     @placed = false
@@ -11,28 +11,29 @@ class Robot
     @direction        = direction
     @direction_index  = DIRECTIONS[@direction.to_sym_down]
     @position         = position
+    @placed           = true
     self
   end
 
-  def move_forward
+  def move
     case @direction.to_sym_down
-      when :north
-        @position.y += 1
-      when :east
-        @position.x += 1
-      when :south
-        @position.y -= 1
-      when :west
-        @position.x -= 1
+    when :north
+      @position.y += 1
+    when :east
+      @position.x += 1
+    when :south
+      @position.y -= 1
+    when :west
+      @position.x -= 1
     end
     self
   end
 
-  def turn_left
+  def left
     turn(-1)
   end
 
-  def turn_right
+  def right
     turn(+1)
   end
 

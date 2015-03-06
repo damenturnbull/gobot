@@ -11,6 +11,12 @@ describe TableGrid do
     it 'sets height' do
       expect(tablegrid.height).to eq(5)
     end
+    it 'sets max x' do
+      expect(tablegrid.max_x).to eq(4)
+    end
+    it 'sets max y' do
+      expect(tablegrid.max_y).to eq(4)
+    end
   end
 
 end

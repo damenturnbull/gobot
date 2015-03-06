@@ -1,4 +1,5 @@
 require_relative '../lib/gobot'
+require_relative '../lib/tablegrid'
 
 puts <<-eos
 ------------------
@@ -15,5 +16,5 @@ Input commands are listed below:
 ------------------
 eos
 
-gobot = Gobot.new
+gobot = Gobot.new(TableGrid.new(5,5))
 gobot.start
