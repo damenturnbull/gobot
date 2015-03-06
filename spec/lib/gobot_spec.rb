@@ -26,22 +26,22 @@ describe Gobot do
       expect{gobot.validate_command("REPORT")}.to_not raise_error
     end
     it 'disallows DERP' do
-      expect(gobot.validate_command("DERP")).to eq(Gobot::MESSAGE_ERROR)
+      expect{ gobot.validate_command("DERP") }.to raise_error(ArgumentError)
     end
     it 'disallows PLACE1,1,NORTH' do
-      expect(gobot.validate_command("PLACE1,1,NORTH")).to eq(Gobot::MESSAGE_ERROR)
+      expect{ gobot.validate_command("PLACE1,1,NORTH") }.to raise_error(ArgumentError)
     end
     it 'disallows PLACE1,1' do
-      expect(gobot.validate_command("PLACE1,1")).to eq(Gobot::MESSAGE_ERROR)
+      expect{ gobot.validate_command("PLACE1,1") }.to raise_error(ArgumentError)
     end
     it 'disallows PLACE NORTH' do
-      expect(gobot.validate_command("PLACE NORTH")).to eq(Gobot::MESSAGE_ERROR)
+      expect{ gobot.validate_command("PLACE NORTH") }.to raise_error(ArgumentError)
     end
     it 'disallows PLACE -1,-1,NORTH' do
-      expect(gobot.validate_command("PLACE -1,-1,NORTH")).to eq(Gobot::MESSAGE_ERROR)
+      expect{ gobot.validate_command("PLACE -1,-1,NORTH") }.to raise_error(ArgumentError)
     end
     it 'disallows PLACE 5,5,NORTH' do
-      expect(gobot.validate_command("PLACE 5,5,NORTH")).to eq(Gobot::MESSAGE_ERROR)
+      expect{ gobot.validate_command("PLACE 5,5,NORTH") }.to raise_error(ArgumentError)
     end
   end
 

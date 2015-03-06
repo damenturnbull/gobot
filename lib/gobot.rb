@@ -22,6 +22,8 @@ class Gobot
       while line = gets
         validate_command(line)
       end
+    rescue ArgumentError => e
+      puts e.message
     rescue StandardError => e
       raise e
     rescue Exception => e
@@ -31,15 +33,10 @@ class Gobot
 
   # Handles invalid command Exceptions
   def validate_command(command)
-    begin
-      command = command.strip.upcase
-      valid = COMMAND_PLACE =~ command || COMMAND_MOVES =~ command || COMMAND_UTILS =~ command
-      raise ArgumentError, MESSAGE_ERROR unless valid
-      handle_command(command)
-    # Rescue here, continue standard input loop
-    rescue ArgumentError => e
-      puts e.message
-    end
+    command = command.strip.upcase
+    valid = COMMAND_MOVES =~ command || COMMAND_PLACE =~ command || COMMAND_UTILS =~ command
+    raise ArgumentError, MESSAGE_ERROR unless valid
+    handle_command(command)
   end
 
   def handle_command(command)
