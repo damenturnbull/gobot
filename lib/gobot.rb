@@ -1,5 +1,7 @@
 require_relative '../lib/robot'
+
 class Gobot
+  # TODO abstract [0-4],[0-4] to correspond with tabletop size
   COMMAND_PLACE = /PLACE [0-4],[0-4],(NORTH|EAST|SOUTH|WEST)/
   COMMAND_MOVES = /MOVE|LEFT|RIGHT/
   COMMAND_UTILS = /REPORT/
@@ -55,9 +57,12 @@ class Gobot
 
   # Check if movement valid
   def pre_place(command)
-    # split place
-    # 1,1,NORTH
-    # @robot.place(command)
+    bits      = command.split(' ')
+    direction = bits[0]
+    coords    = bits[1].split(',')
+    x         = coords[0].to_i
+    y         = coords[1].to_i
+    @robot.place(direction, Position.new(x,y))
   end
 
   # Check Robot has been placed first

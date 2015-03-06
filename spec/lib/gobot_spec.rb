@@ -49,13 +49,23 @@ describe Gobot do
   describe '#handle_command' do
   end
 
-  # describe '#pre_place' do
-  #   let(:gobot) { Gobot.new(TableGrid.new(5,5)) }
-  #   gobot.robot.place("NORTH", Position.new(0,0)
-  #   it 'disallows PLACE 5,5,NORTH' do
-  #     expect(gobot.validate_command("PLACE 5,5,NORTH")).to eq(Gobot::MESSAGE_ERROR)
-  #   end
-  # end
+  # Given
+  describe '#pre_place' do
+    let(:gobot) { Gobot.new(TableGrid.new(5,5)) }
+    context 'when valid command given' do
+      it 'Robot position set correctly' do
+        gobot.pre_place("NORTH 0,0")
+        expect(gobot.robot.position)  .to_not be nil
+        expect(gobot.robot.position.x).to eq(0)
+        expect(gobot.robot.position.y).to eq(0)
+      end
+    end
+
+    # gobot.robot.place("NORTH", Position.new(0,0)
+    # it 'disallows PLACE 5,5,NORTH' do
+    #   expect(gobot.validate_command("PLACE 5,5,NORTH")).to eq(Gobot::MESSAGE_ERROR)
+    # end
+  end
 
   describe '#pre_move' do
     let(:gobot) { Gobot.new(TableGrid.new(5,5)) }

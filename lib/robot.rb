@@ -39,12 +39,12 @@ class Robot
 
   def turn(value)
     @direction_index += value
-    validate_direction
+    reset_direction?
     @direction = DIRECTIONS.key(@direction_index).to_str_up
   end
 
   # Reset index if out of bounds
-  def validate_direction
+  def reset_direction?
     case @direction_index
       when -1
         @direction_index = 3
