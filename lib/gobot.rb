@@ -20,7 +20,7 @@ class Gobot
   def start
     begin
       while line = gets
-        puts validate_command(line)
+        validate_command(line)
       end
     rescue StandardError => e
       raise e
@@ -33,20 +33,19 @@ class Gobot
   def validate_command(command)
     begin
       command = command.strip.upcase
-      valid = COMMAND_PLACE =~ command ||
-              COMMAND_MOVES =~ command ||
-              COMMAND_UTILS =~ command
+      valid = COMMAND_PLACE =~ command || COMMAND_MOVES =~ command || COMMAND_UTILS =~ command
       raise ArgumentError, MESSAGE_ERROR unless valid
       handle_command(command)
     # Rescue here, continue standard input loop
     rescue ArgumentError => e
-      e.message
+      puts e.message
     end
   end
 
   def handle_command(command)
     case command
     when COMMAND_PLACE =~ command
+      # puts "Command is #{command}"
       pre_place(command)
     when COMMAND_MOVES =~ command
       pre_move(command)
@@ -57,18 +56,24 @@ class Gobot
 
   # Check if movement valid
   def pre_place(command)
-    bits      = command.split(' ')
-    direction = bits[0]
-    coords    = bits[1].split(',')
-    x         = coords[0].to_i
-    y         = coords[1].to_i
-    @robot.place(direction, Position.new(x,y))
+    command.slice!(/PLACE /)
+    bits      = command.split(',')
+    x         = bits[0].to_i
+    y         = bits[1].to_i
+    direction = bits[2]
+    @robot.place(Position.new(x,y), direction)
   end
 
   # Check Robot has been placed first
   def pre_move(command)
     raise ArgumentError, MESSAGE_UNPLACED unless robot.placed
     robot.send(command.downcase.to_sym)
+  end
+
+  def report
+    puts "2 here"
+    raise ArgumentError, MESSAGE_UNPLACED unless robot.placed
+    "Robot is currently at #{robot.direction} #{robot.position.x},#{robot.position.y}"
   end
 
 end

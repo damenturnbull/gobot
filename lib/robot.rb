@@ -1,16 +1,15 @@
 class Robot
   DIRECTIONS =  {:north => 0, :east => 1, :south => 2, :west => 3}
-  attr_accessor :direction, :position, :placed
-  attr_reader   :direction_index
+  attr_reader :position, :direction, :direction_index, :placed
 
   def initialize
     @placed = false
   end
 
-  def place(direction, position)
+  def place(position, direction)
+    @position         = position
     @direction        = direction
     @direction_index  = DIRECTIONS[@direction.to_sym_down]
-    @position         = position
     @placed           = true
     self
   end
