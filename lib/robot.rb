@@ -1,3 +1,5 @@
+require_relative 'object'
+
 class Robot
   attr_reader :position, :direction, :placed
 
@@ -42,8 +44,8 @@ class Robot
   end
 
   def report
-    raise ArgumentError, MESSAGE_UNPLACED unless robot.placed
-    "#{@position.x},#{@position.y},#{@direction}"
+    raise ArgumentError, MESSAGE_UNPLACED unless @placed
+    puts "#{@position.x},#{@position.y},#{@direction.upcase}"
   end
 
 end

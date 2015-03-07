@@ -31,12 +31,14 @@ describe Gobot do
   # Given
   describe '#pre_place' do
     let(:gobot) { Gobot.new(TableGrid.new(5,5)) }
-    context 'when valid command given' do
-      it 'Robot position set correctly' do
-        gobot.pre_place("PLACE 0,0,NORTH")
-        expect(gobot.robot.position)  .to_not be nil
-        expect(gobot.robot.position.x).to eq(0)
-        expect(gobot.robot.position.y).to eq(0)
+    context 'when placed within limits of tabletop' do
+      it 'does not raise error' do
+        expect { gobot.pre_place("PLACE 4,4,NORTH") }.not_to raise_error
+      end
+    end
+    context 'when placed beyond limits of tabletop' do
+      it 'raises error' do
+        expect { gobot.pre_place("PLACE 5,5,NORTH") }.to raise_error
       end
     end
   end

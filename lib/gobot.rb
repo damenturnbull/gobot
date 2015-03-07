@@ -5,10 +5,11 @@ Signal.trap("INT") {
 }
 
 require_relative '../lib/robot'
+require_relative '../lib/position'
 
 class Gobot
   # TODO abstract [0-4],[0-4] to correspond with tabletop size
-  VALID_COMMANDS    = /^PLACE [0-4],[0-4],(NORTH|EAST|SOUTH|WEST)$|^MOVE$|^LEFT$|^RIGHT$|^REPORT$/
+  VALID_COMMANDS    = /^PLACE [0-9],[0-9],(NORTH|EAST|SOUTH|WEST)$|^MOVE$|^LEFT$|^RIGHT$|^REPORT$/
   MESSAGE_ERROR     = "Invalid command. Please try again."
   MESSAGE_OFFLIMITS = "Robot must be placed within the limits of the Tabletop."
   MESSAGE_UNPLACED  = "Robot must be placed first."
@@ -50,10 +51,11 @@ class Gobot
   def pre_place(command)
     command.slice!(/PLACE /)
     # X,Y,FACING
-    bits      = command.split(',')
-    x, y      = bits[0].to_i, bits[1].to_i
-    direction = bits[2]
+    pieces    = command.split(',')
+    x, y      = pieces.shift.to_i, pieces.shift.to_i
+    direction = pieces.shift
     # TODO Check movement within constraints of tablegrid
+    raise ArgumentError, MESSAGE_OFFLIMITS unless tablegrid.within_limits(x, y)
     @robot.place(Position.new(x,y), direction)
   end
 
@@ -61,7 +63,7 @@ class Gobot
   def pre_move(command)
     raise ArgumentError, MESSAGE_UNPLACED unless robot.placed
     # TODO Check movement within constraints of tablegrid
-    robot.send(command.downcase.to_sym)
+    @robot.send(command.downcase.to_sym)
   end
 
 end
