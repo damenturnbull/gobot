@@ -11,15 +11,14 @@ describe Robot do
   end
 
   describe '#place' do
-    robot = Robot.new.place(Position.new(0,0), "NORTH")
+    # TODO check out of bounds placements
+    let(:position)  { Position.new(0,0) }
+    let(:robot)     { Robot.new.place(:position, "NORTH") }
     it 'sets direction' do
-      expect(robot.direction).to eq("NORTH")
-    end
-    it 'sets direction index to 0' do
-      expect(robot.direction_index).to eq(0)
+      expect(robot.direction).to eq(:north)
     end
     it 'sets position' do
-      expect(robot.position).not_to be nil
+      expect(robot.position).to eq :position
     end
   end
 
@@ -43,34 +42,41 @@ describe Robot do
   end
 
   describe '#left' do
-    let(:robot) { Robot.new.place(Position.new(0,0), "NORTH") }
-    it 'faces the Robot WEST' do
-      robot.left
-      expect(robot.direction).to eq("WEST")
+    context 'when Robot is facing EAST and turns left' do
+      let(:robot) { Robot.new.place(Position.new(0,0), "EAST") }
+      it 'Robot is facing NORTH' do
+        robot.left
+        expect(robot.direction).to eq(:north)
+      end
     end
-
     context 'when Robot is facing NORTH and turns left' do
       let(:robot) { Robot.new.place(Position.new(0,0), "NORTH") }
-      it 'facing WEST' do
+      it 'Robot is facing WEST' do
         robot.left
-        expect(robot.direction).to eq("WEST")
+        expect(robot.direction).to eq(:west)
       end
     end
   end
 
   describe '#right' do
-    let(:robot) { Robot.new.place(Position.new(0,0), "NORTH") }
-    it 'faces the Robot EAST' do
-      robot.right
-      expect(robot.direction).to eq("EAST")
-    end
     context 'when Robot is facing WEST and turns right' do
       let(:robot) { Robot.new.place(Position.new(0,0), "WEST") }
-      it 'facing NORTH' do
+      it 'Robot is facing NORTH' do
         robot.right
-        expect(robot.direction).to eq("NORTH")
+        expect(robot.direction).to eq(:north)
       end
     end
+    context 'when Robot is facing NORTH and turns right' do
+      let(:robot) { Robot.new.place(Position.new(0,0), "NORTH") }
+      it 'Robot is facing EAST' do
+        robot.right
+        expect(robot.direction).to eq(:east)
+      end
+    end
+  end
+
+  # TODO - turn
+  describe '#turn' do
   end
 
   # describe '#report' do

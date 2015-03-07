@@ -10,7 +10,6 @@ class Gobot
   def initialize(tablegrid)
     @tablegrid = tablegrid
     @robot = Robot.new
-    self
   end
 
   # Starter
@@ -50,12 +49,12 @@ class Gobot
     pre_move(command)
   end
 
+  #
   def pre_place(command)
     command.slice!(/PLACE /)
     # X,Y,FACING
     bits      = command.split(',')
-    x         = bits[0].to_i
-    y         = bits[1].to_i
+    x, y      = bits[0].to_i, bits[1].to_i
     direction = bits[2]
     @robot.place(Position.new(x,y), direction)
   end
