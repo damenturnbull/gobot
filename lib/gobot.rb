@@ -4,6 +4,7 @@ class Gobot
   # TODO abstract [0-4],[0-4] to correspond with tabletop size
   VALID_COMMANDS    = /^PLACE [0-4],[0-4],(NORTH|EAST|SOUTH|WEST)$|^MOVE$|^LEFT$|^RIGHT$|^REPORT$/
   MESSAGE_ERROR     = "Invalid command. Please try again."
+  MESSAGE_OFFLIMITS = "Robot must be placed within the limits of the Tabletop."
   MESSAGE_UNPLACED  = "Robot must be placed first."
   attr_reader   :robot, :tablegrid
 
@@ -56,6 +57,7 @@ class Gobot
     bits      = command.split(',')
     x, y      = bits[0].to_i, bits[1].to_i
     direction = bits[2]
+    # TODO Check movement within constraints of tablegrid
     @robot.place(Position.new(x,y), direction)
   end
 

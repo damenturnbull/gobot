@@ -20,6 +20,9 @@ describe Robot do
     it 'sets position' do
       expect(robot.position).to eq :position
     end
+    context 'Gobot places Robot out of bounds' do
+
+    end
   end
 
   describe '#move' do
@@ -91,7 +94,6 @@ describe Robot do
       end
     end
   end
-
 
   # describe '#report' do
   #   let(:gobot) { Gobot.new(TableGrid.new(5,5)) }

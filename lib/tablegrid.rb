@@ -10,4 +10,8 @@ class TableGrid
     @max_y  = height - 1
     self
   end
+
+  def within_limits(target_x, target_y)
+    (0...@width).include? target_x and (0...@height).include? target_y
+  end
 end

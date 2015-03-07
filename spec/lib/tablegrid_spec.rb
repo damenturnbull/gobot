@@ -19,4 +19,31 @@ describe TableGrid do
     end
   end
 
+  describe '#within_limits' do
+    let(:tablegrid) { TableGrid.new(5, 5) }
+    context 'when Robot placed WITHIN limits of tabletop given width 5 and height 5' do
+      it 'allows x:4 and y:0' do
+        expect(tablegrid.within_limits(4,0)).to eq true
+      end
+      it 'allows x:0 and y:4' do
+        expect(tablegrid.within_limits(0,4)).to eq true
+      end
+    end
+    context 'when Robot placed BEYOND limits:tabletop given width 5 and height 5' do
+      it 'disallows x:5 and y:0' do
+        expect(tablegrid.within_limits(5,0)).to eq false
+      end
+      it 'disallows x:0 and y:5' do
+        expect(tablegrid.within_limits(0,5)).to eq false
+      end
+      it 'disallows x:-1 and y:0' do
+        expect(tablegrid.within_limits(-1,0)).to eq false
+      end
+      it 'disallows x:0 and y:-1' do
+        expect(tablegrid.within_limits(0,-1)).to eq false
+      end
+    end
+
+  end
+
 end
