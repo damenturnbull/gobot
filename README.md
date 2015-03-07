@@ -6,13 +6,13 @@ Setup
 - Gobot makes use of the require_all gem to ease "PATH pain" during testing.
 
 To run tests:
-### 
+###
     $ bundle install
     $ rspec
 
 Assumptions
 -----------
-- Gobot has geolocation awareness ie. Gobot is responsible for knowing what it's x and y coordinates are in relation to the tabletop.
+- Robot has geolocation awareness ie. Robot is responsible for knowing what it's x and y coordinates are in relation to the tabletop. Robot can report this.
 
 Specification
 -----------

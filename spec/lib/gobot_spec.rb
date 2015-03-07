@@ -10,38 +10,17 @@ describe Gobot do
   # TODO refactor with more concise pattern
   describe '#validate_command' do
     let(:gobot) { Gobot.new(TableGrid.new(5,5)) }
-    it 'allows PLACE 0,0,NORTH' do
-      expect{gobot.validate_command("PLACE 0,0,NORTH")}.to_not raise_error
+    it 'disallows PLACE0,0,NORTH' do
+      expect{gobot.validate_command("PLACE0,0,NORTH")}.to raise_error(ArgumentError)
     end
-    it 'allows MOVE' do
-      expect{gobot.validate_command("MOVE")}.to_not raise_error
+    it 'disallows MOVE1' do
+      expect{gobot.validate_command("MOVE1")}.to raise_error(ArgumentError)
     end
-    it 'allows LEFT' do
-      expect{gobot.validate_command("LEFT")}.to_not raise_error
-    end
-    it 'allows RIGHT' do
-      expect{gobot.validate_command("RIGHT")}.to_not raise_error
-    end
-    it 'allows REPORT' do
-      expect{gobot.validate_command("REPORT")}.to_not raise_error
+    it 'disallows LEF' do
+      expect{gobot.validate_command("LEF")}.to raise_error(ArgumentError)
     end
     it 'disallows DERP' do
-      expect{ gobot.validate_command("DERP") }.to raise_error(ArgumentError)
-    end
-    it 'disallows PLACE1,1,NORTH' do
-      expect{ gobot.validate_command("PLACE1,1,NORTH") }.to raise_error(ArgumentError)
-    end
-    it 'disallows PLACE1,1' do
-      expect{ gobot.validate_command("PLACE1,1") }.to raise_error(ArgumentError)
-    end
-    it 'disallows PLACE NORTH' do
-      expect{ gobot.validate_command("PLACE NORTH") }.to raise_error(ArgumentError)
-    end
-    it 'disallows PLACE -1,-1,NORTH' do
-      expect{ gobot.validate_command("PLACE -1,-1,NORTH") }.to raise_error(ArgumentError)
-    end
-    it 'disallows PLACE 5,5,NORTH' do
-      expect{ gobot.validate_command("PLACE 5,5,NORTH") }.to raise_error(ArgumentError)
+      expect{gobot.validate_command("DERP")}.to raise_error(ArgumentError)
     end
   end
 
@@ -79,21 +58,6 @@ describe Gobot do
       it 'disallows invalid commands' do
         gobot.robot.place(Position.new(0,0), "NORTH")
         expect { gobot.pre_move("blah")   }.to raise_error(NoMethodError)
-      end
-    end
-  end
-
-  describe '#report' do
-    let(:gobot) { Gobot.new(TableGrid.new(5,5)) }
-    context 'when Robot has not been placed' do
-      it 'raises ArgumentError' do
-        expect { gobot.report }.to raise_error(ArgumentError)
-      end
-    end
-    context 'when Robot has been placed at NORTH 0,0' do
-      it 'reports "Robot is currently at NORTH 0,0"' do
-        gobot.robot.place(Position.new(0,0), "NORTH")
-        expect(gobot.report).to eq("Robot is currently at NORTH 0,0")
       end
     end
   end

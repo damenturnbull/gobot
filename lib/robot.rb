@@ -52,4 +52,9 @@ class Robot
     end
   end
 
+  def report
+    raise ArgumentError, MESSAGE_UNPLACED unless robot.placed
+    "Robot is currently at #{@direction} #{@position.x},#{@position.y}"
+  end
+
 end
