@@ -1,3 +1,9 @@
+# Handle Ctrl+c interruptions
+Signal.trap("INT") {
+  puts "Robot is sleeping now. Goodbye."
+  exit 1
+}
+
 require_relative '../lib/robot'
 
 class Gobot
@@ -13,24 +19,14 @@ class Gobot
     @robot = Robot.new
   end
 
-  # Starter
   def start
-    begin
-      # Loop through input
-      while line = gets
-        begin
-          validate_command(line)
-        rescue ArgumentError => e
-          puts e.message
-        end
+    # Loop through input
+    while line = gets
+      begin
+        validate_command(line)
+      rescue Exception => e
+        puts e.message
       end
-    # Handles signal termination Exceptions
-    rescue StandardError => e
-      raise e
-    # Handles top level Exceptions
-    rescue Exception => e
-      puts e.message
-      puts "\nGobot has gone to sleep. Good bye."
     end
   end
 
