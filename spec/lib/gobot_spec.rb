@@ -43,23 +43,45 @@ describe Gobot do
     end
   end
 
-  describe '#pre_move' do
+  describe '#is_placed?' do
     let(:gobot) { Gobot.new(TableGrid.new(5,5)) }
     context 'when Robot has not been placed' do
       it 'raises error' do
-        expect { gobot.pre_move("blah")   }.to raise_error(ArgumentError)
+        expect { gobot.is_placed? }.to raise_error(ArgumentError)
       end
     end
     context 'when Robot has been placed' do
-      it 'allows valid commands' do
+      it 'does not raise error' do
         gobot.robot.place(Position.new(0,0), "NORTH")
-        expect { gobot.pre_move("MOVE")   }.to_not raise_error
-        expect { gobot.pre_move("LEFT")   }.to_not raise_error
-        expect { gobot.pre_move("RIGHT")  }.to_not raise_error
+        expect { gobot.is_placed? }.to_not raise_error
       end
-      it 'disallows invalid commands' do
-        gobot.robot.place(Position.new(0,0), "NORTH")
-        expect { gobot.pre_move("blah")   }.to raise_error(NoMethodError)
+    end
+  end
+
+  describe '#try_move' do
+    let(:gobot) { Gobot.new(TableGrid.new(5,5)) }
+    context 'when Robot on NORTH edge of tabletop' do
+      it 'moving forward is prevented' do
+        gobot.robot.place(Position.new(0,4), "NORTH")
+        expect { gobot.try_move }.to raise_error
+      end
+    end
+    context 'when Robot on EAST edge of tabletop' do
+      it 'moving forward is prevented' do
+        gobot.robot.place(Position.new(4,4), "EAST")
+        expect { gobot.try_move }.to raise_error
+      end
+    end
+    context 'when Robot on SOUTH edge of tabletop' do
+      it 'moving forward is prevented' do
+        gobot.robot.place(Position.new(4,0), "SOUTH")
+        expect { gobot.try_move }.to raise_error
+      end
+    end
+    context 'when Robot on WEST edge of tabletop' do
+      it 'moving forward is prevented' do
+        gobot.robot.place(Position.new(0,0), "WEST")
+        expect { gobot.try_move }.to raise_error
       end
     end
   end

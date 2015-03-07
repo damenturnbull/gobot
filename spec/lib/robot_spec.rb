@@ -95,20 +95,9 @@ describe Robot do
     end
   end
 
-  # describe '#report' do
-  #   let(:gobot) { Gobot.new(TableGrid.new(5,5)) }
-  #   context 'when Robot has not been placed' do
-  #     it 'raises ArgumentError' do
-  #       expect { gobot.report }.to raise_error(ArgumentError)
-  #     end
-  #   end
-  #   context 'when Robot has been placed at NORTH 0,0' do
-  #     it 'reports "Robot is currently at NORTH 0,0"' do
-  #       gobot.robot.place(Position.new(0,0), "NORTH")
-  #       expect(gobot.report).to eq("Robot is currently at NORTH 0,0")
-  #     end
-  #   end
-  # end
+  describe '#report' do
+
+  end
 
 end
 
