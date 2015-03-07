@@ -29,16 +29,16 @@ class Robot
     self
   end
 
+  def turn(value)
+    @direction = @directions.rotate!(value).first
+  end
+
   def left
     turn -1
   end
 
   def right
     turn +1
-  end
-
-  def turn(value)
-    @direction = @directions.rotate!(value).first
   end
 
   def report
