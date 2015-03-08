@@ -47,12 +47,12 @@ describe TableGrid do
 
   describe '#within_x' do
     let(:tablegrid) { TableGrid.new(5, 5) }
-    context 'when x is within limits of tabletop' do
+    context 'when x is within limits of tabletop width given a maximum height of 4 and x of 4' do
       it 'x is allowed' do
         expect(tablegrid.within_x(4)).to eq true
       end
     end
-    context 'when x is beyond limits of tabletop' do
+    context 'when x is beyond limits of tabletop width given a maximum height of 4 and x of 5' do
       it 'x is not allowed' do
         expect(tablegrid.within_x(5)).to eq false
       end
@@ -61,12 +61,12 @@ describe TableGrid do
 
   describe '#within_y' do
     let(:tablegrid) { TableGrid.new(5, 5) }
-    context 'when y is within limits of tabletop' do
+    context 'when y is within limits of tabletop height given a maximum height of 4 and y of 4' do
       it 'y is allowed' do
         expect(tablegrid.within_y(4)).to eq true
       end
     end
-    context 'when y is beyond limits of tabletop' do
+    context 'when y is beyond limits of tabletop height given a maximum height of 4 and y of 5' do
       it 'y is not allowed' do
         expect(tablegrid.within_y(5)).to eq false
       end

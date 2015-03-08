@@ -43,9 +43,9 @@ class Robot
     turn +1
   end
 
-  def report
+  def to_s
     raise ArgumentError, MESSAGE_UNPLACED unless @placed
-    puts "#{@position.x},#{@position.y},#{@direction.upcase}"
+    "#{@position.x},#{@position.y},#{@direction.upcase}\n"
   end
 
 end
