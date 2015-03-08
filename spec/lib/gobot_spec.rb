@@ -1,10 +1,13 @@
 describe Gobot do
 
+  before do
+    @stdin   = FakeStdin.new
+    @stdout  = StringIO.new
+  end
+
   describe '#initialize' do
     subject { Gobot.new(TableGrid.new(5,5)).tablegrid }
-    it {
-        is_expected.not_to be nil
-    }
+    it { is_expected.not_to be nil }
   end
 
   # TODO refactor with more concise pattern
@@ -79,6 +82,20 @@ describe Gobot do
       before { gobot.robot.place(Position.new(0,0), "WEST") }
       it 'moving forward is prevented' do
         expect { gobot.handle_move }.to raise_error
+      end
+    end
+  end
+
+  describe '#start' do
+    let(:gobot) { Gobot.new(TableGrid.new(5,5), @stdin, @stdout) }
+    context 'when faking input via STDIN and STDOUT' do
+      before do
+        @stdin.read "PLACE 0,0,NORTH"
+        @stdin.read "REPORT"
+        gobot.start
+      end
+      it 'output will equal "0,0,NORTH' do
+        expect(@stdout.string.chomp).to eq "0,0,NORTH"
       end
     end
   end

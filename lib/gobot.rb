@@ -13,7 +13,7 @@ class Gobot
   VALID_COMMANDS    = /^PLACE [0-9],[0-9],(NORTH|EAST|SOUTH|WEST)$|^MOVE$|^LEFT$|^RIGHT$|^REPORT$/
   attr_reader   :robot, :tablegrid
 
-  def initialize(tablegrid, stdout = STDOUT, stdin = STDIN)
+  def initialize(tablegrid, stdin = STDIN, stdout = STDOUT)
     @tablegrid  = tablegrid
     @robot      = Robot.new
     @stdin      = stdin
@@ -26,7 +26,7 @@ class Gobot
       begin
         validate_command(line)
       rescue Exception => e
-        @stdout << "#{e.message}\n"
+        @stdout.puts "#{e.message}\n"
       end
     end
   end
@@ -82,7 +82,7 @@ class Gobot
   end
 
   def handle_report
-    @stdout << robot
+    @stdout.puts robot
   end
 
 end
