@@ -10,7 +10,7 @@ class Robot
 
   def place(position, direction)
     @position   = position
-    @direction  = direction.to_sym_down
+    @direction  = direction.to_sym.downcase
     @placed     = true
     # Set initial directions pointer
     @directions.rotate! until @directions.first == @direction
