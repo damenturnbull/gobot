@@ -1,3 +1,4 @@
+# Fake standard input by intercepting STDIN
 class FakeStdin
   attr_reader :inputs
 

@@ -1,5 +1,3 @@
-require_relative 'object'
-
 class Robot
   attr_reader :position, :direction, :placed
 
