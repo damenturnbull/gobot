@@ -1,7 +1,7 @@
 describe Robot do
 
   describe '#initialize' do
-    let(:robot) { Robot.new }
+    subject(:robot) { Robot.new }
 
     it 'creates object' do
       expect(robot).not_to be nil
@@ -51,7 +51,7 @@ describe Robot do
   describe '#turn' do
 
     context 'when Robot is facing NORTH and turns left' do
-      let(:robot) { Robot.new.place(Position.new(0,0), "NORTH") }
+      subject(:robot) { Robot.new.place(Position.new(0,0), "NORTH") }
       it 'Robot is facing WEST' do
         robot.turn -1
         expect(robot.direction).to eq(:west)
@@ -59,7 +59,7 @@ describe Robot do
     end
 
     context 'when Robot is facing WEST and turns right' do
-      let(:robot) { Robot.new.place(Position.new(0,0), "WEST") }
+      subject(:robot) { Robot.new.place(Position.new(0,0), "WEST") }
       it 'Robot is facing NORTH' do
         robot.turn 1
         expect(robot.direction).to eq(:north)
@@ -70,7 +70,7 @@ describe Robot do
   describe '#left' do
 
     context 'when Robot is facing EAST and turns left' do
-      let(:robot) { Robot.new.place(Position.new(0,0), "EAST") }
+      subject(:robot) { Robot.new.place(Position.new(0,0), "EAST") }
       it 'Robot is facing NORTH' do
         robot.left
         expect(robot.direction).to eq(:north)
@@ -78,7 +78,7 @@ describe Robot do
     end
 
     context 'when Robot is facing NORTH and turns left' do
-      let(:robot) { Robot.new.place(Position.new(0,0), "NORTH") }
+      subject(:robot) { Robot.new.place(Position.new(0,0), "NORTH") }
       it 'Robot is facing WEST' do
         robot.left
         expect(robot.direction).to eq(:west)
@@ -105,9 +105,13 @@ describe Robot do
     end
   end
 
-  # TODO
-  describe '#report' do
-
+  describe '#to_s' do
+    subject(:robot) { Robot.new.place(Position.new(4,4), "NORTH") }
+    context 'when Robot placed at new position 4,4,NORTH' do
+      it 'returns 4,4,NORTH' do
+        expect(robot.to_s.chomp).to eq "4,4,NORTH"
+      end
+    end
   end
 
 end

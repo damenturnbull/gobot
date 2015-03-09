@@ -266,7 +266,6 @@ describe Gobot do
     end
   end
 
-  # TODO how to test if a command is returned
   describe '#parse_command' do
     subject(:gobot) { Gobot.new(TableGrid.new(5,5)) }
 
