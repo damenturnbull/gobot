@@ -9,9 +9,8 @@ require_relative '../lib/position'
 require_relative '../lib/messages'
 
 class Gobot
-  # TODO abstract [0-4],[0-4] to correspond with tabletop size
-  VALID_COMMANDS    = /^PLACE [0-9],[0-9],(NORTH|EAST|SOUTH|WEST)$|^MOVE$|^LEFT$|^RIGHT$|^REPORT$/
-  attr_reader   :robot, :tablegrid
+  VALID_COMMANDS = /^PLACE [0-9],[0-9],(NORTH|EAST|SOUTH|WEST)$|^MOVE$|^LEFT$|^RIGHT$|^REPORT$/
+  attr_reader    :robot, :tablegrid
 
   def initialize(tablegrid, stdin = STDIN, stdout = STDOUT)
     @tablegrid  = tablegrid
@@ -20,6 +19,7 @@ class Gobot
     @stdout     = stdout
   end
 
+  # Game runner 
   def start
     # Loop through input
     while line = @stdin.gets
@@ -40,7 +40,7 @@ class Gobot
 
   def parse_command(command)
     return handle_place(command) if /^(PLACE )/ =~ command
-    # Ignore further action if Robot unplaced
+    # Robot must be placed to continue...
     raise MESSAGE_UNPLACED unless @robot.placed
     send("handle_#{command.downcase.to_sym}")
   end

@@ -246,7 +246,6 @@ describe Gobot do
     it { is_expected.not_to be nil }
   end
 
-  # TODO refactor with more concise pattern
   describe '#validate_command' do
     let(:gobot) { Gobot.new(TableGrid.new(5,5)) }
 
@@ -269,7 +268,7 @@ describe Gobot do
 
   # TODO how to test if a command is returned
   describe '#parse_command' do
-    let(:gobot) { Gobot.new(TableGrid.new(5,5)) }
+    subject(:gobot) { Gobot.new(TableGrid.new(5,5)) }
 
     context 'when Robot has not been placed' do
       it 'raises error' do
@@ -281,6 +280,31 @@ describe Gobot do
       before { gobot.robot.place(Position.new(0,0), "NORTH") }
       it 'does not raise error' do
         expect { gobot.parse_command "MOVE" }.to_not raise_error
+      end
+
+      it 'given argument "PLACE 0,0,NORTH" it calls the handle_place method' do
+        expect(gobot).to receive(:handle_place)
+        gobot.parse_command "PLACE 0,0,NORTH"
+      end
+
+      it 'given argument "MOVE" it calls the handle_move method' do
+        expect(gobot).to receive(:handle_move)
+        gobot.parse_command "MOVE"
+      end
+
+      it 'given argument "LEFT" it calls the handle_left method' do
+        expect(gobot).to receive(:handle_left)
+        gobot.parse_command "LEFT"
+      end
+
+      it 'given argument "RIGHT" it calls the handle_right method' do
+        expect(gobot).to receive(:handle_right)
+        gobot.parse_command "RIGHT"
+      end
+
+      it 'given argument "REPORT" it calls the handle_report method' do
+        expect(gobot).to receive(:handle_report)
+        gobot.parse_command "REPORT"
       end
     end
   end
