@@ -2,37 +2,46 @@
 
 A small, test driven Ruby application that simulates a robot moving on a tabletop.
 
-### **Setup**
+## Setup
+
 - Clone the git repository to a local directory.
 - Update gem dependencies with bundle:
+
 ### 
     $ bundle install
 
-### **Interacting with Gobot**
+## Interacting with Gobot
+
 - Run the program on command line with Ruby.
+
 ### 
     $ ruby ./bin/go.rb
 
 - To put robot to sleep run Ctrl+C.
 
-### **Testing**
+## Testing
+
 - Test with rspec.
 - To run all tests:
+
 ### 
     $ rspec
 
 - To run specific tests:
+
 ### 
     $ rspec spec/lib/gobot_spec.rb
 
-### **Assumptions**
+## Assumptions
+
 - Robot has geolocation awareness ie. Robot is responsible for knowing what it's x and y coordinates are in relation to the tabletop. Robot can report this.
 
-### **Features / Dependencies**
+## Features / Dependencies
+
 - Program allows case-insensitive commands to aid usability ie. 'MOVE' and 'move' are equivalent
 
 
-# Specification / Requirements
+# Original Specification / Requirements
 
 Description
 -----------
