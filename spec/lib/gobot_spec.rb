@@ -48,8 +48,8 @@ describe Gobot do
             @stdin.read "MOVE"
             gobot.start
           end
-          it "Raises: #{MESSAGE_UNPLACED}" do
-            expect(@stdout.string.chomp).to eq MESSAGE_UNPLACED
+          it "Raises: #{MessageUnplaced}" do
+            expect(@stdout.string.chomp).to eq MessageUnplaced
           end
         end
 
@@ -58,8 +58,8 @@ describe Gobot do
             @stdin.read "PLACE 5,5,NORTH"
             gobot.start
           end
-          it "Raises: #{MESSAGE_OFFLIMITS}" do
-            expect(@stdout.string.chomp).to eq MESSAGE_OFFLIMITS
+          it "Raises: #{MessageOffLimits}" do
+            expect(@stdout.string.chomp).to eq MessageOffLimits
           end
         end
 
@@ -68,8 +68,8 @@ describe Gobot do
             @stdin.read "PLACE -1,-1,NORTH"
             gobot.start
           end
-          it "Raises: #{MESSAGE_ERROR}" do
-            expect(@stdout.string.chomp).to eq MESSAGE_ERROR
+          it "Raises: #{MessageOffLimits}" do
+            expect(@stdout.string.chomp).to eq MessageOffLimits
           end
         end
       end
@@ -116,8 +116,8 @@ describe Gobot do
             @stdin.read "MOVE"
             gobot.start
           end
-          it "Raises: #{MESSAGE_PREVENTED}" do
-            expect(@stdout.string.chomp).to eq MESSAGE_PREVENTED
+          it "Raises: #{MessagePrevented}" do
+            expect(@stdout.string.chomp).to eq MessagePrevented
           end
         end
       end

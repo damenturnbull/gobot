@@ -29,10 +29,6 @@ class Robot
     self
   end
 
-  def turn(value)
-    @direction = @directions.rotate!(value).first
-  end
-
   def left
     turn -1
   end
@@ -42,8 +38,14 @@ class Robot
   end
 
   def to_s
-    raise ArgumentError, MESSAGE_UNPLACED unless @placed
+    raise ArgumentError, MessageUnplaced unless @placed
     "#{@position.x},#{@position.y},#{@direction.upcase}\n"
+  end
+
+private
+  
+  def turn(value)
+    @direction = @directions.rotate!(value).first
   end
 
 end

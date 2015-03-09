@@ -48,25 +48,6 @@ describe Robot do
     end
   end
 
-  describe '#turn' do
-
-    context 'when Robot is facing NORTH and turns left' do
-      subject(:robot) { Robot.new.place(Position.new(0,0), "NORTH") }
-      it 'Robot is facing WEST' do
-        robot.turn -1
-        expect(robot.direction).to eq(:west)
-      end
-    end
-
-    context 'when Robot is facing WEST and turns right' do
-      subject(:robot) { Robot.new.place(Position.new(0,0), "WEST") }
-      it 'Robot is facing NORTH' do
-        robot.turn 1
-        expect(robot.direction).to eq(:north)
-      end
-    end
-  end
-
   describe '#left' do
 
     context 'when Robot is facing EAST and turns left' do

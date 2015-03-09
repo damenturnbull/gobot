@@ -6,7 +6,6 @@ class TableGrid
     @height = height
     @max_x  = @width  - 1
     @max_y  = @height - 1
-    self
   end
 
   def within_limits(target_x, target_y)

@@ -9,7 +9,7 @@ require_relative '../lib/position'
 require_relative '../lib/messages'
 
 class Gobot
-  VALID_COMMANDS = /^PLACE [0-9],[0-9],(NORTH|EAST|SOUTH|WEST)$|^MOVE$|^LEFT$|^RIGHT$|^REPORT$/
+  ValidCommands = /^PLACE [0-9\-]+,[0-9\-]+,(NORTH|EAST|SOUTH|WEST)$|^MOVE$|^LEFT$|^RIGHT$|^REPORT$/
   attr_reader    :robot, :tablegrid
 
   def initialize(tablegrid, stdin = STDIN, stdout = STDOUT)
@@ -34,36 +34,36 @@ class Gobot
   # Handles invalid command Exceptions
   def validate_command(command)
     command = command.chomp.upcase
-    raise MESSAGE_ERROR unless VALID_COMMANDS =~ command
+    raise MessageError unless ValidCommands =~ command
     parse_command(command)
   end
 
   def parse_command(command)
     return handle_place(command) if /^(PLACE )/ =~ command
     # Robot must be placed to continue...
-    raise MESSAGE_UNPLACED unless @robot.placed
+    raise MessageUnplaced unless @robot.placed
     send("handle_#{command.downcase.to_sym}")
   end
 
   def handle_place(command)
     command.slice!(/PLACE /)
-    pieces          = command.split(',')
-    x, y, direction = pieces.shift.to_i, pieces.shift.to_i, pieces.shift
+    x, y, direction = command.split(',')
+    x, y            = x.to_i, y.to_i
     # Deny a placement beyond table limits
-    raise MESSAGE_OFFLIMITS unless tablegrid.within_limits(x, y)
-    @robot.place( Position.new(x,y), direction )
+    raise MessageOffLimits unless tablegrid.within_limits(x, y)
+    @robot.place( Position.new(x, y), direction )
   end
 
   def handle_move
     case @robot.direction
     when :north
-      raise MESSAGE_PREVENTED unless _move_y_valid? +1
+      raise MessagePrevented unless _move_y_valid? +1
     when :east
-      raise MESSAGE_PREVENTED unless _move_x_valid? +1
+      raise MessagePrevented unless _move_x_valid? +1
     when :south
-      raise MESSAGE_PREVENTED unless _move_y_valid? -1
+      raise MessagePrevented unless _move_y_valid? -1
     when :west
-      raise MESSAGE_PREVENTED unless _move_x_valid? -1
+      raise MessagePrevented unless _move_x_valid? -1
     end
     @robot.move
   end
@@ -80,7 +80,7 @@ class Gobot
     @stdout.puts robot
   end
 
-  private
+private
 
   def _move_y_valid?(value)
     @tablegrid.within_y(@robot.position.y + value)
