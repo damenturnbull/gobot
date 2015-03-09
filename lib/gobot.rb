@@ -34,14 +34,14 @@ class Gobot
   # Handles invalid command Exceptions
   def validate_command(command)
     command = command.chomp.upcase
-    raise ArgumentError, MESSAGE_ERROR unless VALID_COMMANDS =~ command
+    raise MESSAGE_ERROR unless VALID_COMMANDS =~ command
     parse_command(command)
   end
 
   def parse_command(command)
     return handle_place(command) if /^(PLACE )/ =~ command
     # Ignore further action if Robot unplaced
-    raise ArgumentError, MESSAGE_UNPLACED unless @robot.placed
+    raise MESSAGE_UNPLACED unless @robot.placed
     send("handle_#{command.downcase.to_sym}")
   end
 
@@ -50,25 +50,20 @@ class Gobot
     pieces          = command.split(',')
     x, y, direction = pieces.shift.to_i, pieces.shift.to_i, pieces.shift
     # Deny a placement beyond table limits
-    raise ArgumentError, MESSAGE_OFFLIMITS unless tablegrid.within_limits(x, y)
+    raise MESSAGE_OFFLIMITS unless tablegrid.within_limits(x, y)
     @robot.place( Position.new(x,y), direction )
   end
 
   def handle_move
     case @robot.direction
-    # TODO DRY this up
     when :north
-      move_valid = @tablegrid.within_y(@robot.position.y + 1)
-      raise ArgumentError, MESSAGE_PREVENTED unless move_valid
+      raise MESSAGE_PREVENTED unless _move_y_valid? +1
     when :east
-      move_valid = @tablegrid.within_x(@robot.position.x + 1)
-      raise ArgumentError, MESSAGE_PREVENTED unless move_valid
+      raise MESSAGE_PREVENTED unless _move_x_valid? +1
     when :south
-      move_valid = @tablegrid.within_y(@robot.position.y - 1)
-      raise ArgumentError, MESSAGE_PREVENTED unless move_valid
+      raise MESSAGE_PREVENTED unless _move_y_valid? -1
     when :west
-      move_valid = @tablegrid.within_x(@robot.position.x - 1)
-      raise ArgumentError, MESSAGE_PREVENTED unless move_valid
+      raise MESSAGE_PREVENTED unless _move_x_valid? -1
     end
     @robot.move
   end
@@ -83,6 +78,16 @@ class Gobot
 
   def handle_report
     @stdout.puts robot
+  end
+
+  private
+
+  def _move_y_valid?(value)
+    @tablegrid.within_y(@robot.position.y + value)
+  end
+
+  def _move_x_valid?(value)
+    @tablegrid.within_x(@robot.position.x + value)
   end
 
 end

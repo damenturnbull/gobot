@@ -251,19 +251,19 @@ describe Gobot do
     let(:gobot) { Gobot.new(TableGrid.new(5,5)) }
 
     it 'disallows PLACE0,0,NORTH' do
-      expect{gobot.validate_command("PLACE0,0,NORTH")}.to raise_error(ArgumentError)
+      expect{gobot.validate_command("PLACE0,0,NORTH")}.to raise_error
     end
 
     it 'disallows MOVE1' do
-      expect{gobot.validate_command("MOVE1")}.to raise_error(ArgumentError)
+      expect{gobot.validate_command("MOVE1")}.to raise_error
     end
 
     it 'disallows LEF' do
-      expect{gobot.validate_command("LEF")}.to raise_error(ArgumentError)
+      expect{gobot.validate_command("LEF")}.to raise_error
     end
 
     it 'disallows DERP' do
-      expect{gobot.validate_command("DERP")}.to raise_error(ArgumentError)
+      expect{gobot.validate_command("DERP")}.to raise_error
     end
   end
 
@@ -273,7 +273,7 @@ describe Gobot do
 
     context 'when Robot has not been placed' do
       it 'raises error' do
-        expect { gobot.parse_command "MOVE" }.to raise_error(ArgumentError)
+        expect { gobot.parse_command "MOVE" }.to raise_error
       end
     end
 
