@@ -21,7 +21,7 @@ A small, test driven Ruby application that simulates a robot moving on a tableto
 
 ## Testing
 
-- Test with rspec.
+- Test with rspec v3.
 - To run all tests:
 
 ### 
@@ -34,7 +34,7 @@ A small, test driven Ruby application that simulates a robot moving on a tableto
 
 ## Assumptions
 
-- Robot has geolocation awareness ie. Robot is responsible for knowing what it's x and y coordinates are in relation to the tabletop. Robot can report this.
+- Robot has geolocation awareness ie. Robot is responsible for knowing it's position on the tabletop.
 
 ## Features / Dependencies
 
